@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Perdidono Espaço</title>
+    <style>
+        :root {
+            --primary: #ff007a;
+            --secondary: #00f2ff;
+            --bg: #050505;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* --- BACKGROUND ANIMATIONS --- */
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background: radial-gradient(circle at 50% 50%, #1a0033 0%, #050505 100%);
+        }
+
+        /* O "Grid" (Grade) no fundo */
+        .grid-floor {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(transparent 0%, var(--primary) 2%, transparent 3%),
+                linear-gradient(90deg, transparent 0%, var(--primary) 2%, transparent 3%);
+            background-size: 50px 50px;
+            background-position: center bottom;
+            transform: perspective(500px) rotateX(60deg);
+            transform-origin: center bottom;
+            animation: move-grid 2s linear infinite;
+            opacity: 0.15;
+            z-index: 2;
+        }
+
+        @keyframes move-grid {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 50px; }
+        }
+
+        /* --- CONTENT CARD --- */
+        .error-container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 3rem;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            max-width: 90%;
+            width: 500px;
+            animation: float-card 6s ease-in-out infinite;
+        }
+
+        @keyframes float-card {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        h1 {
+            font-size: 8rem;
+            font-weight: 900;
+            background: linear-gradient(to bottom, var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 15px rgba(255, 0, 122, 0.5));
+            position: relative;
+        }
+
+        /* Efeito de Glitch no 404 */
+        h1::before, h1::after {
+            content: "404";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        h1::before {
+            color: #0ff;
+            z-index: -1;
+            animation: glitch 3s cubic-bezier(.25, .46, .45, .94) both infinite;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+            100% { transform: translate(0); }
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            border: 2px solid var(--secondary);
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn:hover {
+            color: black;
+            box-shadow: 0 0 20px var(--secondary);
+        }
+
+        .btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--secondary);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+
+        /* --- GEOMETRIC SHAPES ANIMATION --- */
+        .shape {
+            position: absolute;
+            z-index: 3;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="canvas-container">
+        <div class="grid-floor"></div>
+    </div>
+
+    <div class="error-container">
+        <h1 id="error-code">404</h1>
+        <p>OPS! PARECE QUE VOCÊ SE PERDEU NO HIPERESPAÇO.</p>
+        <a href="#" class="btn" onclick="window.history.back()">Voltar ao Início</a>
+    </div>
+
+    <script>
+        const container = document.getElementById('canvas-container');
+        const colors = ['#ff007a', '#00f2ff', '#7000ff', '#ffffff'];
+        const shapes = ['square', 'circle', 'triangle'];
+
+        function createShape() {
+            const shape = document.createElement('div');
+            const type = shapes[Math.floor(Math.random() * shapes.length)];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const size = Math.random() * 40 + 10;
+            
+            shape.classList.add('shape');
+            shape.style.width = `${size}px`;
+            shape.style.height = `${size}px`;
+            shape.style.left = `${Math.random() * 100}%`;
+            shape.style.top = `${Math.random() * 100}%`;
+            shape.style.backgroundColor = type === 'triangle' ? 'transparent' : color;
+            shape.style.border = `1px solid ${color}`;
+            shape.style.boxShadow = `0 0 10px ${color}`;
+
+            if (type === 'circle') {
+                shape.style.borderRadius = '50%';
+            } else if (type === 'triangle') {
+                shape.style.width = '0';
+                shape.style.height = '0';
+                shape.style.borderLeft = `${size/2}px solid transparent`;
+                shape.style.borderRight = `${size/2}px solid transparent`;
+                shape.style.borderBottom = `${size}px solid ${color}`;
+                shape.style.backgroundColor = 'transparent';
+            }
+
+            container.appendChild(shape);
+
+            // Animação manual para garantir suavidade
+            const duration = Math.random() * 10000 + 5000;
+            const destinationX = (Math.random() - 0.5) * 400;
+            const destinationY = (Math.random() - 0.5) * 400;
+            const rotation = Math.random() * 720;
+
+            const anim = shape.animate([
+                { transform: 'translate(0, 0) rotate(0deg)', opacity: 0 },
+                { opacity: 0.5, offset: 0.2 },
+                { transform: `translate(${destinationX}px, ${destinationY}px) rotate(${rotation}deg)`, opacity: 0 }
+            ], {
+                duration: duration,
+                easing: 'linear',
+                iterations: Infinity
+            });
+
+            // Remove e recria após um tempo para manter a performance
+            setTimeout(() => {
+                shape.remove();
+                createShape();
+            }, duration);
+        }
+
+        // Criar formas iniciais
+        for (let i = 0; i < 25; i++) {
+            setTimeout(createShape, i * 200);
+        }
+
+        // Interação com o mouse
+        document.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            const card = document.querySelector('.error-container');
+            card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg) translateY(-10px)`;
+        });
+    </script>
+</body>
+</html>

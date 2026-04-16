@@ -1,13 +1,176 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>falixtab</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mozart | Full Stack Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background-color: #000000; color: #ffffff; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
+        #canvas-particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0.4; }
+        .glass { background: rgba(255, 255, 255, 0.02 ); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 16px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .glass:hover { border-color: rgba(255, 255, 255, 0.2); background: rgba(255, 255, 255, 0.05); transform: translateY(-5px); }
+        .tech-pill { background: #0a0a0a; border: 1px solid #1a1a1a; padding: 8px 16px; border-radius: 12px; font-size: 0.75rem; color: #888; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
+        .tech-pill:hover { border-color: #ffffff; color: #ffffff; transform: scale(1.05); box-shadow: 0 0 15px rgba(255,255,255,0.1); }
+        .eth-btn { background: #627eea; color: white; border: none; transition: 0.3s; }
+        .eth-btn:hover { background: #455db1; box-shadow: 0 0 20px rgba(98, 126, 234, 0.3); }
+        .fade-in { animation: fadeIn 1.2s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .glow-text { text-shadow: 0 0 20px rgba(255,255,255,0.2); }
+    </style>
+</head>
+<body>
+    <canvas id="canvas-particles"></canvas>
+
+    <main class="max-w-3xl mx-auto px-6 py-20 relative z-10 fade-in">
+        
+        <!-- Header -->
+        <header class="text-center mb-20">
+            <div class="inline-block relative mb-8 group">
+                <div class="absolute -inset-1 bg-white/20 rounded-full blur-md group-hover:bg-white/30 transition"></div>
+                <img src="https://gravatar.com/userimage/278325552/8343692fbc48c148396be1d73586b132.jpeg?v=1774376729000&size=256" alt="Mozart" class="relative w-28 h-28 rounded-full border border-white/10 object-cover grayscale hover:grayscale-0 transition duration-500">
+            </div>
+            <h1 class="text-6xl md:text-8xl font-black mb-4 tracking-tighter uppercase glow-text">MOZART</h1>
+            <p class="text-[10px] text-neutral-500 font-bold uppercase tracking-[0.5em] mb-12">Full Stack Developer & Web3 Architect</p>
+            
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="https://github.com/mozart-personal" target="_blank" class="glass px-6 py-3 text-[10px] font-black tracking-widest uppercase flex items-center gap-2 hover:text-white transition">
+                    <i class="fab fa-github text-base"></i> GitHub
+                </a>
+                <a href="mailto:mozartpersonal@proton.me" class="glass px-6 py-3 text-[10px] font-black tracking-widest uppercase flex items-center gap-2 hover:text-white transition">
+                    <i class="fas fa-envelope text-base"></i> Email
+                </a>
+                <button id="connect-wallet-btn" class="eth-btn px-6 py-3 rounded-2xl text-[10px] font-black tracking-widest uppercase flex items-center gap-2 shadow-xl">
+                    <i class="fab fa-ethereum text-base"></i> Connect Wallet
+                </button>
+            </div>
+            <p id="wallet-status" class="text-[8px] text-neutral-600 uppercase tracking-widest mt-4 h-2"></p>
+        </header>
+
+        <!-- Technical Arsenal (All Techs Back! ) -->
+        <section class="mb-20">
+            <h3 class="text-[10px] font-black uppercase tracking-[0.4em] text-neutral-500 mb-10 flex items-center gap-4">
+                Technical Arsenal <span class="h-[1px] flex-1 bg-neutral-900"></span>
+            </h3>
+            <div class="flex flex-wrap gap-3">
+                <div class="tech-pill"><i class="fab fa-html5"></i> HTML5</div>
+                <div class="tech-pill"><i class="fab fa-css3-alt"></i> CSS3</div>
+                <div class="tech-pill"><i class="fab fa-js"></i> JavaScript</div>
+                <div class="tech-pill">TypeScript</div>
+                <div class="tech-pill"><i class="fab fa-react"></i> React</div>
+                <div class="tech-pill">Next.js</div>
+                <div class="tech-pill">Tailwind</div>
+                <div class="tech-pill"><i class="fab fa-python"></i> Python</div>
+                <div class="tech-pill"><i class="fab fa-node-js"></i> Node.js</div>
+                <div class="tech-pill">Supabase</div>
+                <div class="tech-pill">Firebase</div>
+                <div class="tech-pill"><i class="fab fa-docker"></i> Docker</div>
+                <div class="tech-pill"><i class="fab fa-git-alt"></i> Git</div>
+                <div class="tech-pill">Llama IA</div>
+                <div class="tech-pill"><i class="fab fa-php"></i> PHP</div>
+                <div class="tech-pill">PostgreSQL</div>
+                <div class="tech-pill">MongoDB</div>
+                <div class="tech-pill"><i class="fab fa-aws"></i> AWS</div>
+                <div class="tech-pill"><i class="fab fa-angular"></i> Angular</div>
+                <div class="tech-pill"><i class="fab fa-vuejs"></i> Vue.js</div>
+                <div class="tech-pill">C#</div>
+                <div class="tech-pill"><i class="fab fa-java"></i> Java</div>
+                <div class="tech-pill">Electron</div>
+                <div class="tech-pill">GraphQL</div>
+                <div class="tech-pill">Framer Motion</div>
+            </div>
+        </section>
+
+        <footer class="mt-40 pt-12 border-t border-white/5 text-center">
+            <p class="text-[9px] text-neutral-700 uppercase tracking-[0.6em] mb-6">Designed by Mozart — 2026</p>
+            <button onclick="copyAddress()" class="text-[7px] text-neutral-800 hover:text-neutral-400 uppercase tracking-widest transition">
+              0x2C44Ea49f66f090C40CcF894D988Bc0812C2CAA0   (Copy Address)
+            </button>
+        </footer>
+    </main>
+
+    <!-- Web3 & Particles Scripts -->
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+    <script>
+        // --- Web3 Logic ---
+        const connectBtn = document.getElementById('connect-wallet-btn' );
+        const statusText = document.getElementById('wallet-status');
+        const myAddress = "0x2C44Ea49f66f090C40CcF894D988Bc0812C2CAA0";
+
+        connectBtn.onclick = async () => {
+            if (typeof window.ethereum !== 'undefined') {
+                try {
+                    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+                    const provider = new ethers.providers.Web3Provider(window.ethereum);
+                    const signer = provider.getSigner();
+                    
+                    statusText.innerText = "CONNECTED: " + accounts[0].substring(0,6) + "..." + accounts[0].substring(38);
+                    connectBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Support with 0.001 ETH';
+                    connectBtn.classList.remove('eth-btn');
+                    connectBtn.classList.add('glass');
+                    connectBtn.style.backgroundColor = "white";
+                    connectBtn.style.color = "black";
+
+                    connectBtn.onclick = async () => {
+                        try {
+                            statusText.innerText = "WAITING FOR CONFIRMATION...";
+                            const tx = await signer.sendTransaction({ to: myAddress, value: ethers.utils.parseEther("0.001") });
+                            statusText.innerText = "SUCCESS! HASH: " + tx.hash.substring(0,10) + "...";
+                        } catch (err) { statusText.innerText = "TRANSACTION FAILED"; }
+                    };
+                } catch (error) { statusText.innerText = "CONNECTION ERROR"; }
+            } else { statusText.innerText = "INSTALL METAMASK TO CONNECT"; }
+        };
+
+        function copyAddress() {
+            navigator.clipboard.writeText(myAddress);
+            statusText.innerText = "ADDRESS COPIED!";
+            setTimeout(() => statusText.innerText = "", 2000);
+        }
+
+        // --- Particles Effect ---
+        const canvas = document.getElementById('canvas-particles');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.onresize = resize;
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() { for (let i = 0; i < 80; i++) { particles.push(new Particle()); } }
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+        init();
+        animate();
+    </script>
+</body>
 </html>
+
